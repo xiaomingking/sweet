@@ -1,0 +1,217 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.min.js"></script>
+  <script>
+    window.onload=function(){
+      let arr = [1,2,34,5,4]
+      arr.splice(1,1)
+      console.log(arr)
+
+
+
+      function teach(name,teacher) {
+        this.teacher = teacher
+        this.name = name
+        this.fun = function () {
+          console.log(this.teacher + " is teaching " + this.name)
+        }
+      }
+      var a = new teach("LiLei","Miss Zhang")
+      function fx() {
+        var item = "test" 
+        var add = item
+        item += "abc"
+        console.log(add, "sssss",item)
+      }
+      function fnn(msg, obj) {
+        if(arguments.length === 2) {
+          obj.send(msg)
+        }else{
+          alert(msg)
+        }
+      }
+      // 一个接受任意数量参数并将其转化为数组的函数
+      function makeArray () {
+        var array = []
+        for (i=0;i<arguments.length;i++){
+          array.push(arguments[i])
+        }
+        console.log(array)
+      }
+      //使用构造函数属性来判断对象的类型
+      function fun () {
+        var num = '18'
+        if(num.constructor === String){
+          num += 2
+        }
+        console.log(num)
+      }
+
+      
+      function move(timer,leng,_opc,_li,timeOut) {
+        timer = setTimeout(function(){
+          _opc -= 0.01
+          _li[leng].style.opacity = _opc
+          if (_opc<=0) {
+            _li[leng].style.opacity = 1
+            _li[leng].style.zIndex = -1
+            _opc=1
+            leng --
+            if(leng<0){
+              leng=_li.length -1
+              for(var i=0;i<_li.length;i++){
+                _li[i].style.zIndex = i
+              }
+            }
+          }
+          move(timer,leng,_opc,_li)
+        },30)
+      }
+
+      function stop(leng,timer,timeOut){
+        var _li = document.getElementsByTagName("li")
+        var _round = document.getElementById("round")
+        for(let i=0;i<_round.children.length;i++){
+          _round.children[i].onclick=function(){
+            // _li[i].style.opacity = 1
+            // _li[i].style.zIndex = leng
+            timeOut = true
+            console.log(timeOut)
+          }
+        }
+      }
+      
+      function opacityChange(){
+        var timeOut = false
+        var _li = document.getElementsByTagName("li")
+        var _opc = 1
+        var leng = _li.length -1
+        var timer
+        stop(leng,timer,timeOut)
+        move(timer,leng,_opc,_li)
+        var _round = document.getElementById("round")
+        _round.onclick = function(){
+          clearTimeout(timer)
+          
+        }
+      }
+      opacityChange()
+         // 我这下干活了
+         
+    }
+  </script>
+  <style>
+    body{
+      background: pink;
+    }
+    #box{
+      width:800;
+      height:600px;
+      position: relative;
+    }
+    li:first-child{
+      background: orange;
+    }
+    li:nth-child(2){
+      background: pink;
+    }
+    li:nth-child(3){
+      background: salmon;
+    }
+    li:nth-child(4){
+      background: gainsboro;
+    }
+    li:last-child{
+      background: navajowhite;
+    }
+    li{
+      list-style: none;
+      position: absolute;
+    }
+    li span{
+      display: inline-block;
+      width:26px;
+      height:26px;
+      line-height: 26px;
+      border-radius:13px;
+      background: white;
+      margin-left:6px;
+      text-align: center;
+    }
+    li{
+      height:400px;
+      width:300px;
+      overflow: hidden;
+    }
+    img{
+     width:300px;
+    }
+ 
+    #round{
+      position: absolute;
+      z-index: 100;
+      bottom:10px;
+      right:10px;
+    }
+    #round span{
+      display: inline-block;
+      width:16px;
+      height:16px;
+      line-height: 16px;
+      border-radius:8px;
+      background: white;
+      margin-left:6px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="box">
+    <div id="round">
+    </div>
+    <ul>
+      <li><img src="./1.jpg" alt=""></li>
+      <li><img src="./2.jpg" alt=""></li>
+      <li><img src="./3.jpg" alt=""></li>
+      <li><img src="./5.jpg" alt=""></li>
+      <li><img src="./6.jpg" alt=""></li>
+    </ul>
+  </div>
+  <script>
+  const vm = new Vue({
+    el:"#box",
+    data(){
+      return{
+        msg:'dsfsf'
+      }
+    },
+    methods:{
+      move () {
+        let even = event || window.event
+        let plane = document.getElementsByClassName('plane')[0]
+          plane.style.top = event.clientY - 40+"px"
+          plane.style.left = event.clientX-480+"px"
+          if (event.clientX-480 < 10){
+            plane.style.left = 10
+          }
+          if (event.clientX-480 > 300){
+            plane.style.left = 300
+          }
+          if (event.clientY - 40 <10){
+            plane.style.top = 10
+          }
+          if (event.clientY - 40 > 480){
+            plane.style.top = 480
+          }
+      }
+    },
+    mounted () {
+    }
+  })
+</script>
+</body>
+</html>
